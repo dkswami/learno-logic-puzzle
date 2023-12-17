@@ -23,7 +23,7 @@ export default function Home() {
             rel="noopener noreferrer"
           >
             <h2>
-              Go '/puzzle' to view the puzzle project for learno.ai{" "}
+              Go /puzzle to view the puzzle project for learno.ai{" "}
               <span>-&gt;</span>
             </h2>
             <p>Or Click here!</p>
