@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,13 +17,17 @@ export default function Home() {
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
         <div className={styles.grid}>
-          <a href="/puzzle" className={styles.card} rel="noopener noreferrer">
+          <Link
+            href="/puzzle"
+            className={styles.card}
+            rel="noopener noreferrer"
+          >
             <h2>
               Go '/puzzle' to view the puzzle project for learno.ai{" "}
               <span>-&gt;</span>
             </h2>
             <p>Or Click here!</p>
-          </a>
+          </Link>
         </div>
       </main>
     </>
