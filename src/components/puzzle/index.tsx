@@ -1,10 +1,91 @@
-import React from "react";
-import { Box, HStack, Heading, Text, VStack } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Box, Button, HStack, Heading, Text, VStack } from "@chakra-ui/react";
 import Board from "./board";
+import { FaCheckCircle, FaUndo } from "react-icons/fa";
+import { MdFeedback } from "react-icons/md";
 
 interface Props {}
 
+const puzzleData = {
+  category1: {
+    name: "Class Time",
+    value: ["8:00", "9:00", "10:00", "11:00"],
+  },
+  category2: {
+    name: "Teacher",
+    value: ["aditya", "basil", "cecilia", "dimitri"],
+  },
+  category3: {
+    name: "Course",
+    value: ["algebra", "calculus", "geometry", "probability"],
+  },
+  category1and2Rules: [
+    (grid: any) => grid[0][0] == 1,
+    (grid: any) => grid[3][1] == 1,
+    (grid: any) => grid[1][2] == 1,
+    (grid: any) => grid[2][3] == 1,
+  ],
+  category1and3Rules: [
+    (grid: any) => grid[2][0] == 1,
+    (grid: any) => grid[1][1] == 1,
+    (grid: any) => grid[3][2] == 1,
+    (grid: any) => grid[0][3] == 1,
+  ],
+  category2and3Rules: [
+    (grid: any) => grid[3][0] == 1,
+    (grid: any) => grid[2][1] == 1,
+    (grid: any) => grid[1][2] == 1,
+    (grid: any) => grid[0][3] == 1,
+  ],
+  // isSolution: function (grid) {
+  //   return this.category1and2Rules.every((rule) => rule(this.grid));
+  // },
+};
+
 const GridPuzzle: React.FC<Props> = ({}) => {
+  const [grid1and2, setGrid1and2] = useState<any>([
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+  ]);
+  const [grid1and3, setGrid1and3] = useState<any>([
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+  ]);
+  const [grid2and3, setGrid2and3] = useState<any>([
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+    [null, null, null, null],
+  ]);
+
+  const handleSubmit = () => {
+    const checkSolution = () => {
+      console.log(
+        puzzleData.category1and2Rules.every((rule) => rule(grid1and2))
+      );
+      console.log(
+        puzzleData.category1and3Rules.every((rule) => rule(grid1and3))
+      );
+      console.log(
+        puzzleData.category2and3Rules.every((rule) => rule(grid2and3))
+      );
+    };
+    checkSolution();
+    if (
+      puzzleData.category1and2Rules.every((rule) => rule(grid1and2)) &&
+      puzzleData.category1and3Rules.every((rule) => rule(grid1and3)) &&
+      puzzleData.category2and3Rules.every((rule) => rule(grid2and3))
+    ) {
+      alert("Congratulations!! You found the correct solution!");
+    } else {
+      alert("Incorrect Solution Please try again. Use Feedback for help.");
+    }
+  };
+
   return (
     <>
       <HStack gap="0" alignItems={"flex-start"}>
@@ -89,7 +170,12 @@ const GridPuzzle: React.FC<Props> = ({}) => {
                 CLASS TIME
               </Heading>
             </Box>
-            <Board />
+            <Board
+              rowCategory={puzzleData.category1}
+              columnCategory={puzzleData.category2}
+              squares={grid1and2}
+              setSquares={setGrid1and2}
+            />
           </HStack>
           <HStack gap="0">
             <VStack gap="0">
@@ -119,7 +205,12 @@ const GridPuzzle: React.FC<Props> = ({}) => {
                 COURSE
               </Heading>
             </Box>
-            <Board />
+            <Board
+              rowCategory={puzzleData.category2}
+              columnCategory={puzzleData.category3}
+              squares={grid2and3}
+              setSquares={setGrid2and3}
+            />
           </HStack>
         </VStack>
         <Box>
@@ -174,8 +265,29 @@ const GridPuzzle: React.FC<Props> = ({}) => {
               COURSE
             </Heading>
           </Box>
-          <Board />
+          <Board
+            rowCategory={puzzleData.category1}
+            columnCategory={puzzleData.category3}
+            squares={grid1and3}
+            setSquares={setGrid1and3}
+          />
         </Box>
+      </HStack>
+      <HStack spacing={4}>
+        <Button leftIcon={<FaUndo />} colorScheme="teal" variant="solid">
+          Undo
+        </Button>
+        <Button leftIcon={<MdFeedback />} colorScheme="teal" variant="solid">
+          Feedback
+        </Button>
+        <Button
+          rightIcon={<FaCheckCircle />}
+          colorScheme="green"
+          variant="solid"
+          onClick={handleSubmit}
+        >
+          Submit
+        </Button>
       </HStack>
     </>
   );

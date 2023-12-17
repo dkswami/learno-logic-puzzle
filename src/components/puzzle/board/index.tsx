@@ -2,17 +2,15 @@ import React, { useState } from "react";
 import { Box } from "@chakra-ui/react";
 import Square from "../square";
 
-interface Props {}
+interface Props {
+	rowCategory: any;
+	columnCategory: any;
+	squares: any;
+	setSquares: Function;
+}
 
-const defaultSquares = [
-	[null, null, null, null],
-	[null, null, null, null],
-	[null, null, null, null],
-	[null, null, null, null],
-]
-
-const Board: React.FC<Props> = ({}) => {
-	const [squares, setSquares] = useState<any>(defaultSquares);
+const Board: React.FC<Props> = ({squares, setSquares}) => {
+	// const [squares, setSquares] = useState<any>(defaultSquares);
 
 	console.table(
 		'squares', squares
