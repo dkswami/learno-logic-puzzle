@@ -6,43 +6,14 @@ import { MdFeedback } from "react-icons/md";
 
 interface Props {}
 
-const puzzleData = {
-  category1: {
-    name: "Class Time",
-    value: ["8:00", "9:00", "10:00", "11:00"],
-  },
-  category2: {
-    name: "Teacher",
-    value: ["aditya", "basil", "cecilia", "dimitri"],
-  },
-  category3: {
-    name: "Course",
-    value: ["algebra", "calculus", "geometry", "probability"],
-  },
-  category1and2Rules: [
-    (grid: any) => grid[0][0] == 1,
-    (grid: any) => grid[3][1] == 1,
-    (grid: any) => grid[1][2] == 1,
-    (grid: any) => grid[2][3] == 1,
-  ],
-  category1and3Rules: [
-    (grid: any) => grid[2][0] == 1,
-    (grid: any) => grid[1][1] == 1,
-    (grid: any) => grid[3][2] == 1,
-    (grid: any) => grid[0][3] == 1,
-  ],
-  category2and3Rules: [
-    (grid: any) => grid[3][0] == 1,
-    (grid: any) => grid[2][1] == 1,
-    (grid: any) => grid[1][2] == 1,
-    (grid: any) => grid[0][3] == 1,
-  ],
-  // isSolution: function (grid) {
-  //   return this.category1and2Rules.every((rule) => rule(this.grid));
-  // },
-};
+interface IFeedback {
+  board: string;
+  i: number;
+  j: number;
+}
 
 const GridPuzzle: React.FC<Props> = ({}) => {
+  const [feedback, setFeedback] = useState<IFeedback>();
   const [grid1and2, setGrid1and2] = useState<any>([
     [null, null, null, null],
     [null, null, null, null],
@@ -62,15 +33,123 @@ const GridPuzzle: React.FC<Props> = ({}) => {
     [null, null, null, null],
   ]);
 
+  const puzzleData = {
+    category1: {
+      name: "Class Time",
+      value: ["8:00", "9:00", "10:00", "11:00"],
+    },
+    category2: {
+      name: "Teacher",
+      value: ["aditya", "basil", "cecilia", "dimitri"],
+    },
+    category3: {
+      name: "Course",
+      value: ["algebra", "calculus", "geometry", "probability"],
+    },
+    category1and2Rules: [
+      (grid: any) => {
+        if (grid[0][0] == 1) return true;
+        else {
+          setFeedback({ board: "1and2", i: 0, j: 0 });
+          return false;
+        }
+      },
+      (grid: any) => {
+        if (grid[3][1] == 1) return true;
+        else {
+          setFeedback({ board: "1and2", i: 3, j: 1 });
+          return false;
+        }
+      },
+      (grid: any) => {
+        if (grid[1][2] == 1) return true;
+        else {
+          setFeedback({ board: "1and2", i: 1, j: 2 });
+          return false;
+        }
+      },
+      (grid: any) => {
+        if (grid[2][3] == 1) return true;
+        else {
+          setFeedback({ board: "1and2", i: 2, j: 3 });
+          return false;
+        }
+      },
+    ],
+    category1and3Rules: [
+      (grid: any) => {
+        if (grid[2][0] == 1) return true;
+        else {
+          setFeedback({ board: "1and3", i: 2, j: 0 });
+          return false;
+        }
+      },
+      (grid: any) => {
+        if (grid[1][1] == 1) return true;
+        else {
+          setFeedback({ board: "1and3", i: 1, j: 1 });
+          return false;
+        }
+      },
+      (grid: any) => {
+        if (grid[3][2] == 1) return true;
+        else {
+          setFeedback({ board: "1and3", i: 3, j: 2 });
+          return false;
+        }
+      },
+      (grid: any) => {
+        if (grid[0][3] == 1) return true;
+        else {
+          setFeedback({ board: "1and3", i: 0, j: 3 });
+          return false;
+        }
+      },
+    ],
+    category2and3Rules: [
+      (grid: any) => {
+        if (grid[3][0] == 1) return true;
+        else {
+          setFeedback({ board: "2and3", i: 3, j: 0 });
+          return false;
+        }
+      },
+      (grid: any) => {
+        if (grid[2][1] == 1) return true;
+        else {
+          setFeedback({ board: "2and3", i: 2, j: 1 });
+          return false;
+        }
+      },
+      (grid: any) => {
+        if (grid[1][2] == 1) return true;
+        else {
+          setFeedback({ board: "2and3", i: 1, j: 2 });
+          return false;
+        }
+      },
+      (grid: any) => {
+        if (grid[0][3] == 1) return true;
+        else {
+          setFeedback({ board: "2and3", i: 0, j: 3 });
+          return false;
+        }
+      },
+    ],
+  };
+
   const handleSubmit = () => {
     const checkSolution = () => {
       console.log(
+        "1 and 2",
         puzzleData.category1and2Rules.every((rule) => rule(grid1and2))
       );
       console.log(
+        "1 and 3",
         puzzleData.category1and3Rules.every((rule) => rule(grid1and3))
       );
       console.log(
+        "2 and 3",
         puzzleData.category2and3Rules.every((rule) => rule(grid2and3))
       );
     };
@@ -80,11 +159,21 @@ const GridPuzzle: React.FC<Props> = ({}) => {
       puzzleData.category1and3Rules.every((rule) => rule(grid1and3)) &&
       puzzleData.category2and3Rules.every((rule) => rule(grid2and3))
     ) {
+      setFeedback(undefined);
       alert("Congratulations!! You found the correct solution!");
     } else {
+      setFeedback(undefined);
       alert("Incorrect Solution Please try again. Use Feedback for help.");
     }
   };
+
+  const handleFeedback = () => {
+    puzzleData.category1and2Rules.map((rule) => rule(grid1and2));
+    puzzleData.category1and3Rules.every((rule) => rule(grid1and3));
+    puzzleData.category2and3Rules.every((rule) => rule(grid2and3));
+  };
+
+  console.log("feedback", feedback);
 
   return (
     <>
@@ -273,11 +362,38 @@ const GridPuzzle: React.FC<Props> = ({}) => {
           />
         </Box>
       </HStack>
-      <HStack spacing={4}>
+      <Box mt="24">
+        {feedback &&
+          (feedback.board == "2and3" ? (
+            <Text fontWeight={"bold"}>
+              Hint: Here {puzzleData.category2.value[feedback.j]} column and{" "}
+              {puzzleData.category3.value[feedback.i]} row must be checked as
+              per given clue.
+            </Text>
+          ) : feedback.board == "1and2" ? (
+            <Text fontWeight={"bold"}>
+              Hint: Here {puzzleData.category2.value[feedback.j]} column and{" "}
+              {puzzleData.category1.value[feedback.i]} row must be checked as
+              per given clue.
+            </Text>
+          ) : (
+            <Text fontWeight={"bold"}>
+              Hint: Here {puzzleData.category3.value[feedback.j]} column and{" "}
+              {puzzleData.category1.value[feedback.i]} row must be checked as
+              per given clue.
+            </Text>
+          ))}
+      </Box>
+      <HStack spacing={4} mt="24">
         <Button leftIcon={<FaUndo />} colorScheme="teal" variant="solid">
           Undo
         </Button>
-        <Button leftIcon={<MdFeedback />} colorScheme="teal" variant="solid">
+        <Button
+          leftIcon={<MdFeedback />}
+          colorScheme="teal"
+          variant="solid"
+          onClick={handleFeedback}
+        >
           Feedback
         </Button>
         <Button
