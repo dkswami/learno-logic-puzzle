@@ -1,5 +1,15 @@
 import React, { useState } from "react";
-import { Box, Button, HStack, Heading, Text, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Center,
+  HStack,
+  Heading,
+  ListItem,
+  OrderedList,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import Board from "./board";
 import { FaCheckCircle, FaUndo } from "react-icons/fa";
 import { MdFeedback } from "react-icons/md";
@@ -34,6 +44,14 @@ const GridPuzzle: React.FC<Props> = ({}) => {
   ]);
 
   const puzzleData = {
+    statement:
+      "Aditya, Basil, Cecilia, and Dimitri each teach one class at 8:00, 9:00, 10:00, or 11:00. At those times, they each teach algebra, calculus, geometry, or probability. Everybody teaches at a different time, and everybody teaches a different class. For each teacher, we’d like to know *when* they teach and *which course*they teach. Given a set of clues, how can we figure it out?",
+    clues: [
+      "One of Basil's class and the 9:00 class is calculus and the other is geometry.",
+      "The four different classes are Cecilia’s, the 10:00 class, geometry, and probability.",
+      "Aditya’s class is one hour before calculus.",
+      "Calculus is two hours before geometry.",
+    ],
     category1: {
       name: "Class Time",
       value: ["8:00", "9:00", "10:00", "11:00"],
@@ -139,21 +157,21 @@ const GridPuzzle: React.FC<Props> = ({}) => {
   };
 
   const handleSubmit = () => {
-    const checkSolution = () => {
-      console.log(
-        "1 and 2",
-        puzzleData.category1and2Rules.every((rule) => rule(grid1and2))
-      );
-      console.log(
-        "1 and 3",
-        puzzleData.category1and3Rules.every((rule) => rule(grid1and3))
-      );
-      console.log(
-        "2 and 3",
-        puzzleData.category2and3Rules.every((rule) => rule(grid2and3))
-      );
-    };
-    checkSolution();
+    // const checkSolution = () => {
+    //   console.log(
+    //     "1 and 2",
+    //     puzzleData.category1and2Rules.every((rule) => rule(grid1and2))
+    //   );
+    //   console.log(
+    //     "1 and 3",
+    //     puzzleData.category1and3Rules.every((rule) => rule(grid1and3))
+    //   );
+    //   console.log(
+    //     "2 and 3",
+    //     puzzleData.category2and3Rules.every((rule) => rule(grid2and3))
+    //   );
+    // };
+    // checkSolution();
     if (
       puzzleData.category1and2Rules.every((rule) => rule(grid1and2)) &&
       puzzleData.category1and3Rules.every((rule) => rule(grid1and3)) &&
@@ -173,10 +191,18 @@ const GridPuzzle: React.FC<Props> = ({}) => {
     puzzleData.category2and3Rules.every((rule) => rule(grid2and3));
   };
 
-  console.log("feedback", feedback);
+  // console.log("feedback", feedback);
 
   return (
     <>
+      <Center>
+        <Text>{puzzleData.statement}</Text>
+      </Center>
+      <OrderedList>
+        {puzzleData.clues.map((clue, idx) => (
+          <ListItem key={idx}>{clue}</ListItem>
+        ))}
+      </OrderedList>
       <HStack gap="0" alignItems={"flex-start"}>
         <VStack gap="0" alignItems={"flex-end"}>
           <HStack gap="0" h="180px" align="flex-end">
@@ -384,7 +410,7 @@ const GridPuzzle: React.FC<Props> = ({}) => {
             </Text>
           ))}
       </Box>
-      <HStack spacing={4} mt="24">
+      <HStack spacing={4} mt="24" mb="48">
         <Button leftIcon={<FaUndo />} colorScheme="teal" variant="solid">
           Undo
         </Button>

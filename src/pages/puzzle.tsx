@@ -6,7 +6,7 @@ import React from "react";
 
 const puzzle: React.FC = () => {
   return (
-    <Container mt="150" centerContent>
+    <Container mt="24" centerContent>
       <GridPuzzle />
     </Container>
   );
