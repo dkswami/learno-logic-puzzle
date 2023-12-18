@@ -206,50 +206,21 @@ const GridPuzzle: React.FC<Props> = ({}) => {
       <HStack gap="0" alignItems={"flex-start"}>
         <VStack gap="0" alignItems={"flex-end"}>
           <HStack gap="0" h="180px" align="flex-end">
-            <Text
-              style={{
-                writingMode: "vertical-lr",
-                transform: "rotate(180deg)",
-              }}
-              m="0"
-              p="13px"
-              fontWeight={"bold"}
-            >
-              ADITYA
-            </Text>
-            <Text
-              style={{
-                writingMode: "vertical-lr",
-                transform: "rotate(180deg)",
-              }}
-              m="0"
-              p="13px"
-              fontWeight={"bold"}
-            >
-              BASIL
-            </Text>
-            <Text
-              style={{
-                writingMode: "vertical-lr",
-                transform: "rotate(180deg)",
-              }}
-              m="0"
-              p="13px"
-              fontWeight={"bold"}
-            >
-              CECILIA
-            </Text>
-            <Text
-              style={{
-                writingMode: "vertical-lr",
-                transform: "rotate(180deg)",
-              }}
-              m="0"
-              p="13px"
-              fontWeight={"bold"}
-            >
-              DIMITRI
-            </Text>
+            {puzzleData.category2.value.map((category, idx) => (
+              <Text
+                style={{
+                  writingMode: "vertical-lr",
+                  transform: "rotate(180deg)",
+                }}
+                m="0"
+                p="13px"
+                fontWeight={"bold"}
+                textTransform={"uppercase"}
+                key={idx}
+              >
+                {category}
+              </Text>
+            ))}
           </HStack>
 
           <Box bg="red" w="180px">
@@ -259,18 +230,11 @@ const GridPuzzle: React.FC<Props> = ({}) => {
           </Box>
           <HStack gap="0">
             <VStack gap="0">
-              <Text m="0" p="13px" fontWeight={"bold"}>
-                8 : 00
-              </Text>
-              <Text m="0" p="13px" fontWeight={"bold"}>
-                9 : 00
-              </Text>
-              <Text m="0" p="13px" fontWeight={"bold"}>
-                10 : 00
-              </Text>
-              <Text m="0" p="13px" fontWeight={"bold"}>
-                11 : 00
-              </Text>
+              {puzzleData.category1.value.map((category, idx) => (
+                <Text m="0" p="13px" fontWeight={"bold"} key={idx}>
+                  {category}
+                </Text>
+              ))}
             </VStack>
             <Box bg="teal" h="180px">
               <Heading
@@ -294,18 +258,17 @@ const GridPuzzle: React.FC<Props> = ({}) => {
           </HStack>
           <HStack gap="0">
             <VStack gap="0">
-              <Text m="0" p="13px" fontWeight={"bold"}>
-                ALGEBRA
-              </Text>
-              <Text m="0" p="13px" fontWeight={"bold"}>
-                CALCULUS
-              </Text>
-              <Text m="0" p="13px" fontWeight={"bold"}>
-                GEOMETRY
-              </Text>
-              <Text m="0" p="13px" fontWeight={"bold"}>
-                PROBABILITY
-              </Text>
+              {puzzleData.category3.value.map((category, idx) => (
+                <Text
+                  m="0"
+                  p="13px"
+                  fontWeight={"bold"}
+                  key={idx}
+                  textTransform={"uppercase"}
+                >
+                  {category}
+                </Text>
+              ))}
             </VStack>
             <Box bg="orange" h="180px">
               <Heading
@@ -330,50 +293,21 @@ const GridPuzzle: React.FC<Props> = ({}) => {
         </VStack>
         <Box>
           <HStack gap="0" h="180px" align="flex-end">
-            <Text
-              style={{
-                writingMode: "vertical-lr",
-                transform: "rotate(180deg)",
-              }}
-              m="0"
-              p="13px"
-              fontWeight={"bold"}
-            >
-              ALGEBRA
-            </Text>
-            <Text
-              style={{
-                writingMode: "vertical-lr",
-                transform: "rotate(180deg)",
-              }}
-              m="0"
-              p="13px"
-              fontWeight={"bold"}
-            >
-              CALCULUS
-            </Text>
-            <Text
-              style={{
-                writingMode: "vertical-lr",
-                transform: "rotate(180deg)",
-              }}
-              m="0"
-              p="13px"
-              fontWeight={"bold"}
-            >
-              GEOMETRY
-            </Text>
-            <Text
-              style={{
-                writingMode: "vertical-lr",
-                transform: "rotate(180deg)",
-              }}
-              m="0"
-              p="13px"
-              fontWeight={"bold"}
-            >
-              PROBABILITY
-            </Text>
+            {puzzleData.category3.value.map((category, idx) => (
+              <Text
+                style={{
+                  writingMode: "vertical-lr",
+                  transform: "rotate(180deg)",
+                }}
+                m="0"
+                p="13px"
+                fontWeight={"bold"}
+                key={idx}
+                textTransform={"uppercase"}
+              >
+                {category}
+              </Text>
+            ))}
           </HStack>
           <Box bg="orange">
             <Heading m="0" textAlign={"center"}>
