@@ -22,8 +22,14 @@ interface IFeedback {
   j: number;
 }
 
+interface IHistory {
+  board: string;
+  value: any;
+}
+
 const GridPuzzle: React.FC<Props> = ({}) => {
   const [feedback, setFeedback] = useState<IFeedback>();
+  const [history, setHistory] = useState<IHistory[]>();
   const [grid1and2, setGrid1and2] = useState<any>([
     [null, null, null, null],
     [null, null, null, null],
